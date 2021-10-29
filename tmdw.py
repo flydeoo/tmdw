@@ -14,9 +14,7 @@ for char in fileLoc:
         
 wiseOption = input("would you like to remove some known English words such as the, a, and ... ? (y|n)")
 wise = ["on","who","what","it","the","and","or","a","an","of","so","am","is","are","to","so","So","that","be","you","we","have","in","this","for","as"]
-#numList = [*range(0,1000,1)]
-#wise+=numList
-#print(numList)
+
 wMarks = [",",":",".","\n",";"]
 if wiseOption == "y":
     ban = wise + wMarks
@@ -32,7 +30,7 @@ for c in f:
 if ".srt" in file:
     x = re.sub("\d\n\d.*?--> \d.*?\n","",string)
     string = x
-#str = "hello from erfan say hello to  your familly"
+
        
 
 mem = ""
@@ -70,8 +68,7 @@ fres=""
 for k,v in res.items():
     fres = str(k) + " : " + str(v) + " \n"
     f.write(fres)
-#print(res)
-#lres = str(fres)
+
 
 f.write("\n")
 f.close()
