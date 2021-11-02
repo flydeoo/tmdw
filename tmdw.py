@@ -2,7 +2,23 @@
 # coding: utf-8
 
 # In[10]:
+import sys
 
+opts = [opt for opt in sys.argv[1:] if opt.startswith("-")]
+args = [arg for arg in sys.argv[1:] if not arg.startswith("-")]
+fileLoc= ""
+file=""
+
+if "-f" in opts:
+  fileLoc = args
+
+else:
+    #raise SystemExit(f"Usage: {sys.argv[0]} (-f) <arguments>...")
+    print("welcome to tmdw\n => Please Enter File location (e.g \".file/the_movie.srt\")")
+    fileLoc = input()
+
+
+print(file)
 # import regular expression
 import re 
 
@@ -16,14 +32,14 @@ xpoints = np.array([])
 ypoints = np.array([])
 
 from collections import OrderedDict
-file=""
-fileLoc  = input("Please Enter .srt or txt file Location")
+
+#fileLoc  = input("Please Enter .srt or txt file Location")
 for char in fileLoc:
     if char != "\"":
         file += char
         
 wiseOption = input("would you like to remove some known English words such as the, a, and ... ? (y|n)")
-wise = ["number","can","will","should","going","on","who","what","it","the","and","or","a","an","of","so","am","is","are","to","so","So","that","be","you","we","have","in","this","for","as"]
+wise = ["get","was","she","he","with","all","your","don't","do","down","up","my","me","I","i","that","the","to","you","number","can","will","should","going","on","who","what","it","the","and","or","a","an","of","so","am","is","are","to","so","So","that","be","you","we","have","in","this","for","as"]
 
 wMarks = [",",":",".","\n",";"]
 
@@ -37,7 +53,7 @@ for c in f:
 
 
 if ".srt" in file:
-    x = re.sub("\d\n\d.*?--> \d.*?\n","",string)
+    x = re.sub("\d.*?\n\d.*?--> \d.*?\n","",string)
     string = x
 #str = "hello from erfan say hello to  your familly"
        
