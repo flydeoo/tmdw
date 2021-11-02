@@ -18,7 +18,7 @@ else:
     fileLoc = input()
 
 
-print(file)
+
 # import regular expression
 import re 
 
