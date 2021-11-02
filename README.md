@@ -8,10 +8,23 @@ you don't know them. so, walk with me if you think so
 ## what does the tmdw do?
 it get the .srt or text file and return the new words + counts of them and show a graph for frequent words
 
-## installationguide:
+## installation guide:
 soon
 
-## How to use ? 
-soon 
-
-
+## How to use ?
+you can use basic option of tmdw:
+```
+python tmdw.py -f "file_location"
+```
+or just run the script:
+```
+python tmdw.py
+```
+and then when you see 
+>=> Please Enter File location (e.g ".file/the_movie.srt") 
+message, enter the file location:
+```
+python tmdw.py
+=> Please Enter File location (e.g ".file/the_movie.srt")
+"file_location"
+```
