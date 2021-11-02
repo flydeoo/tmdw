@@ -22,6 +22,7 @@ python tmdw.py
 ```
 and then when you see 
 >=> Please Enter File location (e.g ".file/the_movie.srt") 
+
 message, enter the file location:
 ```
 python tmdw.py
