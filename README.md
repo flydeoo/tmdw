@@ -12,6 +12,11 @@ it get the .srt or text file and return the new words + counts of them and show 
 soon
 
 ## How to use ?
+
+### flags :
+-f => file location
+-w => wise option
+
 you can use basic option of tmdw:
 ```
 python tmdw.py -f "file_location"
