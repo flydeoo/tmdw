@@ -24,7 +24,7 @@ else:
 
 # import regular expression
 import re 
-# res.index
+
 
 #import numpy
 import numpy as np
@@ -43,31 +43,42 @@ for char in fileLoc:
         file += char
 
 
-wise = ["get","was","she","he","with","all","your","don't","do","down","up","my","me","I","i","that","the","to","you","number","can","will","should","going","on","who","what","it","the","and","or","a","an","of","so","am","is","are","to","so","So","that","be","you","we","have","in","this","for","as"]
+
+wise = []
+wise_dict = open("dictEn.txt","r")
+
+for line in wise_dict:
+  if '/' not in line:
+    l = len(line) - 1
+    line = line[0:l]
+    wise.append(line)
+
+
 
 wMarks = [",",":",".","\n",";"]
 
   
-
 string =""
 f = open(file, "r")
     
-for c in f: 
-  string += c
+for line in f: 
+  string += line
 
 
 if ".srt" in file:
     x = re.sub("\d.*?\n\d.*?--> \d.*?\n","",string)
     string = x
-#str = "hello from erfan say hello to  your familly"
+
        
 
 mem = ""
 thisdict = {}
 
 for c in string:
-    
-   # from every char you read, chnage ban items to space
+   # change every char to lower one, so we don't check The,THe and THE
+   c = c.lower() 
+
+   # from every char you read, chanage ban items to space
    if c in wMarks:
      c = " "
     
