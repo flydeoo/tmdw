@@ -14,8 +14,9 @@ soon
 ## How to use ?
 
 ### flags :
--f => file location
--w => wise option
+-f => file location</br>
+-w => wise option</br>
+-g => graphical plot
 
 you can use basic option of tmdw:
 ```
