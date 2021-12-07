@@ -6,16 +6,23 @@ import sys
 
 opts = [opt for opt in sys.argv[1:] if opt.startswith("-")]
 args = [arg for arg in sys.argv[1:] if not arg.startswith("-")]
+
+# init 
 fileLoc= ""
 file=""
 wiseOption = False
+g_flag = False
 
 if "-w" in opts:
   wiseOption = True  
 
 if "-f" in opts:
   fileLoc = args
-else:
+
+if "-g" in opts:
+  g_flag = True
+
+elif "-f" not in opts:
     #raise SystemExit(f"Usage: {sys.argv[0]} (-f) <arguments>...")
     print("welcome to tmdw\n => Please Enter File location (e.g \".file/the_movie.srt\")")
     fileLoc = input()
@@ -25,13 +32,13 @@ else:
 # import regular expression
 import re 
 
-
 #import numpy
 import numpy as np
 
 #import matplotlib 
 import matplotlib.pyplot as plt
 
+# x,y points for plot
 xpoints = np.array([])
 ypoints = np.array([])
 
@@ -119,12 +126,14 @@ res = dict(res)
 
 k = list(res.keys())[0:6]
 v = list(res.values())[0:6]
-x_axis = np.append(xpoints,k)
-y_axis = np.append(ypoints,v)
-plt.plot(x_axis,y_axis)
-plt.xlabel('word')
-plt.ylabel('count')
-plt.show()
+
+if g_flag == True:
+  x_axis = np.append(xpoints,k)
+  y_axis = np.append(ypoints,v)
+  plt.plot(x_axis,y_axis)
+  plt.xlabel('word')
+  plt.ylabel('count')
+  plt.show()
 
 
 
