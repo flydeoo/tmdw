@@ -3,7 +3,7 @@
 
 # %%
 #import sys to get args and opts from user
-from os import makedirs
+import os
 import sys
 
 # import regular expression
@@ -22,6 +22,10 @@ g_flag = False
 wise = []
 wise_dict = open("dictEn.txt","r")
 
+def chkFile(file):
+    return os.path.isfile(file)
+
+
 def getInput():
 
   global wiseOption, g_flag, fileLoc
@@ -34,15 +38,20 @@ def getInput():
     wiseOption = True  
 
   if "-f" in opts:
-    fileLoc = args
+    fileIndex = sys.argv.index("-f") + 1
+    fileLoc = sys.argv[fileIndex]
+    fileStat = chkFile(fileLoc)
+    if fileStat == False:
+            print("=> tmdw : Error in loading file")
+            quit()
 
   if "-g" in opts:
     g_flag = True
 
   elif "-f" not in opts:
       #raise SystemExit(f"Usage: {sys.argv[0]} (-f) <arguments>...")
-      print("welcome to tmdw\n => Please Enter File location (e.g \".file/the_movie.srt\")")
-      fileLoc = input()
+      print("=> tmdw : Seems like to forget -f \"path/to/fileLocation\" switch")
+      quit()
 
   return fileLoc
 
@@ -153,7 +162,7 @@ def output(file,res):
 
   f.write("\n")
   f.close()
-  print("done! check the result on result.txt")
+  print("=> tmdw : done! check the result on result.txt")
 
 
 

@@ -28,7 +28,7 @@ def file_reader_test():
     # str = "this is first line this is decond line "
     # assert file_reader(file) == ""
     # f = open(file, "r")
-    text = file_reader(testfile)
+    text = file_reader(testfile)[0]
     assert text == 'this is first line\nthis is second line ', "Error in file_reader"
         
 
