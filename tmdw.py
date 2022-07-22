@@ -1,9 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
+
 
 # %%
+#-*- coding: utf-8 -*-
+
 #import sys to get args and opts from user
 import os
+# from readline import insert_text
 import sys
 
 # import regular expression
@@ -19,7 +21,9 @@ import matplotlib.pyplot as plt
 fileLoc= ""
 wiseOption = False
 g_flag = False
+i_flag = False
 wise = []
+inTextList = []
 wise_dict = open("dictEn.txt","r")
 
 def chkFile(file):
@@ -28,14 +32,12 @@ def chkFile(file):
 
 def getInput():
 
-  global wiseOption, g_flag, fileLoc
+  global wiseOption, g_flag, fileLoc, i_flag
 
   opts = [opt for opt in sys.argv[1:] if opt.startswith("-")]
   args = [arg for arg in sys.argv[1:] if not arg.startswith("-")]
 
 
-  if "-w" in opts:
-    wiseOption = True  
 
   if "-f" in opts:
     fileIndex = sys.argv.index("-f") + 1
@@ -45,15 +47,22 @@ def getInput():
             print("=> tmdw : Error in loading file")
             quit()
 
-  if "-g" in opts:
-    g_flag = True
+    if "-g" in opts:
+      g_flag = True
+
+    if "-v" in opts:
+      i_flag = True
+
+    
+    if "-w" in opts:
+      wiseOption = True    
 
   elif "-f" not in opts:
       #raise SystemExit(f"Usage: {sys.argv[0]} (-f) <arguments>...")
       print("=> tmdw : Seems like to forget -f \"path/to/fileLocation\" switch")
       quit()
 
-  return fileLoc
+  return fileLoc 
 
 
 def file_reader(fileaddr):
@@ -87,51 +96,89 @@ for line in wise_dict:
     l = len(line) - 1
     line = line[0:l]
     wise.append(line)
+    # print(line)
 
 
 
-wMarks = [",",":",".","\n",";"]
+wMarks = [",",":",".","\n",";","?","-","!","\"","[","]","(",")","…","■"]
+
+for n in range(0,10):
+  wMarks.append(str(n))
 
   
 
 
   
 def counter(string):
-  # space is tigger to do some function, so we add space to last word
-  # to proccess the last item too
-  string += ' '
-
-  mem = ""
+  global wMarks
+  
+  lineList = string.splitlines()
   thisdict = {}
+  global inTextList
 
-  for c in string:
-    # change every char to lower one, so we don't check The,THe and THE
-    c = c.lower() 
+  for line in lineList:
 
-    # from every char you read, change ban items to space
-    if c in wMarks:
-      c = " "
-      
-    # from every char you read, if char is not space, store it 
-    if c != " ":
-      mem+= c
-      
-    # final stage, save mem to array with space trigger
-    if c == " ":    
-          if mem in thisdict.keys():
+    # space is tigger to do some function, so we add space to last word
+    # to proccess the last item too
+    string = line
+    typestr = type(string)
+    string += ' '
+
+    mem = ""
+
+    for c in string:
+      # change every char to lower one, so we don't check The,THe and THE
+      c = c.lower() 
+
+      # from every char you read, change ban items to space
+      if c in wMarks:
+        c = " "
+        
+      # from every char you read, if char is not space, store it 
+      if c != " ":
+        mem+= c
+        
+      # final stage, save mem to array with space trigger
+      if c == " ":    
+            if mem in thisdict.keys():    
               thisdict[mem]+= 1
-              
-          else:
-            if wiseOption == True:
-              if mem!= "" and mem not in wise :  
-                thisdict[mem]= 1
-            elif wiseOption == False:
-              if mem!= "" :
-                thisdict[mem]= 1
+              if i_flag:
+                
+                sp_line = line
+                sp_mem = "\"" + mem + "\""
+                sp_line = sp_line.lower()
+                sp_line = sp_line.replace(mem,sp_mem)
+                inTextList.append(sp_line)
+               
+                
+            else:
+              if wiseOption == True:
+                if mem!= "" and mem not in wise :  
+                  thisdict[mem]= 1
+                  if i_flag:
+                    
+                    sp_line = line
+                    sp_mem = "\"" + mem + "\""
+                    # sp_mem = " wow "
+                    sp_line = sp_line.lower()
+                    sp_line = sp_line.replace(mem,sp_mem)
+                    inTextList.append(sp_line)                  
 
-                  
-          #whether it's the world we have in array or not, clear mem        
-          mem =""
+
+              elif wiseOption == False:
+                if mem!= "" :
+                  thisdict[mem]= 1
+
+                  if i_flag:
+                    
+                    sp_line = line
+                    sp_line = sp_line.lower()
+                    sp_mem = "\"" + mem + "\""
+                    sp_line = sp_line.replace(mem,sp_mem)
+                    inTextList.append(sp_line)
+                        
+            #whether it's the world we have in array or not, clear mem        
+            mem =""
       
   return thisdict    
 
@@ -161,6 +208,12 @@ def output(file,res):
       f.write(fres)
 
   f.write("\n")
+  
+  if i_flag:
+    for item in inTextList:
+      f.write(item)
+      f.write("\n")
+
   f.close()
   print("=> tmdw : done! check the result on result.txt")
 

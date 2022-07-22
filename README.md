@@ -16,7 +16,8 @@ soon
 ### flags :
 -f => file location</br>
 -w => wise option</br>
--g => graphical plot
+-g => graphical plot</br>
+-v => verbose mode
 
 you can use basic option of tmdw:
 ```
